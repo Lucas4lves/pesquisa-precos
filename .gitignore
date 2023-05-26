@@ -14,6 +14,7 @@ dist-ssr
 
 # Dados sensíveis
 lojas.json
+produto.json
 
 # Editor directories and files
 .vscode/*

@@ -36,15 +36,49 @@
 .table-content{
     height: 100%;
     overflow-y: scroll;
+    scrollbar-width: .5em;
     padding: .5em;
+}
+
+.table-content::-webkit-scrollbar{
+    width: .5em;
 }
 
 .table-line{
     display: flex;
     padding: .3em;
+    min-height: 75px;
 }
 
 .table-line input{
     width: 16px;
     height: 16px;
 }
+
+.line-produto{
+    border-bottom: .5px solid #D9D9D9;
+}
+
+.search-wrapper input{
+    height: 38px;  
+}
+
+.select-wrapper{
+    display: flex;
+    position: relative;
+    gap: .5em;
+    align-items: center;
+    flex: 1;
+}
+
+.select-option{
+    background-color: #0054A6;
+    top: 2px;   
+    left: 2px;
+    width: 100%;
+    background-color: #FFFFFF;
+    border: 1px solid #0054A6;
+    border-radius: 10px;
+    min-height: 38px;
+}
+

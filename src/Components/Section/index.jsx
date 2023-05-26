@@ -6,13 +6,10 @@ import {
   AccordionIcon,
   Box,
 } from "@chakra-ui/react";
-import SearchInput from "../SearchInput";
-import TableHeader from "../TableHeader";
-import TableLine from "../TableLine";
-import { useGlobalContext } from "../../Context";
+import Table from "../Table";
 
-const Section = ({ title, disabled = false }) => {
-  const { lojas } = useGlobalContext();
+const Section = ({ title, disabled = false, data }) => {
+
   return (
     <>
       <AccordionItem
@@ -45,20 +42,7 @@ const Section = ({ title, disabled = false }) => {
           pb={1}
         >
           <Box padding={"2"} flex={"1.5"}>
-            <div className="top-box">
-              <SearchInput placeholder={"Pesquisar por Lojas..."} />
-            </div>
-            <div className="inner-box">
-              <TableHeader
-                columns={["Código", "Nome", "UF", ""]}
-                flexes={[1, 2, 1, 0.1]}
-              />
-              <div className="table-content">
-                {lojas?.map((loja, index) => {
-                  return <TableLine key={index} item={loja} index={index} />;
-                })}
-              </div>
-            </div>
+            <Table data={data} type={title.toLowerCase()} />
           </Box>
           <Box backgroundColor={"aquamarine"} flex={"1"}>
             2
