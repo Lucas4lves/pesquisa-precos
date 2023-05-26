@@ -1,0 +1,18 @@
+.search-wrapper{
+    position: relative;
+    width: 40%;
+}
+
+.search-wrapper input::placeholder{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
+input{
+    padding: .2em;
+    width: 100%;
+    border: 1px solid #0054A6;
+    border-radius: 10px;
+    background-color: #FFFFFF;
+}

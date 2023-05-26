@@ -1,0 +1,50 @@
+.main-wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.accordion-body{
+    width: 75%;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.top-box{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.inner-box{
+    display: flex;
+    flex-direction: column;
+    background-color: #FFFFFF;
+    margin-top: .5em;
+    height: 80%;
+}
+
+.table-header{
+    background-color: #FFFFFF;
+    display: flex;
+    padding: .5em;
+    border-bottom: 1px solid #D9D9D9;   
+}
+
+.table-content{
+    height: 100%;
+    overflow-y: scroll;
+    padding: .5em;
+}
+
+.table-line{
+    display: flex;
+    padding: .3em;
+}
+
+.table-line input{
+    width: 16px;
+    height: 16px;
+}
