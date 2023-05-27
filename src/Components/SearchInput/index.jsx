@@ -1,11 +1,13 @@
 import "./search.css";
 import { useState } from "react";
-import { useGlobalContext } from "../../Context/";
+import { useStoresContext } from '../../Contexts/Stores.jsx';
+import { useProductsContext } from '../../Contexts/Products.jsx';
+
 
 const SearchInput = ({ placeholder, name }) => {
-  const { lojas, setLojasFiltradas, produto, setProdutosFiltrados } = useGlobalContext();
   const [query, setQuery] = useState("");
-
+  const { lojas, lojasFiltradas, setLojasFiltradas } = useStoresContext();
+  const { produtos, produtosFilrados, setProdutosFiltrados} = useProductsContext();
   const filtrar = (query) => {
     if(name === 'lojas')
     {
@@ -22,7 +24,7 @@ const SearchInput = ({ placeholder, name }) => {
     }
 
     setProdutosFiltrados([
-        ...produto.filter(produto => produto.nome.toUpperCase().includes(query.toUpperCase()))
+        ...produtos.filter(produto => produto.nome.toUpperCase().includes(query.toUpperCase()))
     ]);
 
     if(query.length <= 0){

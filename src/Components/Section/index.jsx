@@ -7,9 +7,10 @@ import {
   Box,
 } from "@chakra-ui/react";
 import Table from "../Table";
+import StoresProvider from "../../Contexts/Stores.jsx";
+import ProductsProvider from "../../Contexts/Products";
 
-const Section = ({ title, disabled = false, data }) => {
-
+const Section = ({ title, disabled = false }) => {
   return (
     <>
       <AccordionItem
@@ -36,17 +37,21 @@ const Section = ({ title, disabled = false, data }) => {
           style={{
             display: "flex",
             width: "100%",
-            maxHeight: "350px",
-            minHeight: "320px",
+            maxHeight: "320px",
+            minHeight: "80px",
           }}
           pb={1}
         >
-          <Box padding={"2"} flex={"1.5"}>
-            <Table data={data} type={title.toLowerCase()} />
-          </Box>
-          <Box backgroundColor={"aquamarine"} flex={"1"}>
-            2
-          </Box>
+          <StoresProvider>
+            <ProductsProvider>
+              <Box padding={"2"} flex={"1.5"}>
+                <Table type={title.toLowerCase()} />
+              </Box>
+              <Box backgroundColor={"aquamarine"} flex={"1"}>
+                2
+              </Box>
+            </ProductsProvider>
+          </StoresProvider>
         </AccordionPanel>
       </AccordionItem>
     </>

@@ -1,12 +1,14 @@
-import { useGlobalContext } from "../../Context";
 import SearchInput from "../SearchInput";
 import SelectOption from "../SelectOption";
 import TableHeader from "../TableHeader";
 import TableLine from "../TableLine";
+import { useStoresContext } from "../../Contexts/Stores.jsx";
+import { useProductsContext } from "../../Contexts/Products.jsx";
 
-const Table = ({ data, type }) => {
+const Table = ({ type }) => {
 
-  const {lojasFiltradas, produtosFiltrados } = useGlobalContext();
+  const {lojasFiltradas} = useStoresContext();
+  const {produtosFiltrados} = useProductsContext();
 
   if (type === "lojas") {
     return (

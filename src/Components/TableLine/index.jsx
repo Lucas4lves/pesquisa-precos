@@ -1,12 +1,12 @@
-import { useEffect } from "react";
 import { useState } from "react";
-import { useGlobalContext } from "../../Context";
+import { useGlobalContext } from "../../Contexts";
+import { useStoresContext } from '../../Contexts/Stores';
 
 const TableLine = ({ item, index, type }) => {
 
   const [checked, setChecked] = useState(false);
-
-  const { lojas, produto,  form, setForm } = useGlobalContext();
+  const { produto,  form, setForm } = useGlobalContext();
+  const { lojas, selecionadas, setSelecionadas } = useStoresContext();
 
   const getStoreById = (id) => {
     return lojas.filter((loja) => loja.codigo == id)[0];
@@ -17,18 +17,14 @@ const TableLine = ({ item, index, type }) => {
   }
 
   const selectStore = (e) => {
-    if (!form[e.target.name].includes(getStoreById(e.target.parentNode.id))) {
-      setForm({ ...form, [e.target.name]: [...form[e.target.name], getStoreById(e.target.parentNode.id)]});
-      setChecked(!checked)
+    if (!selecionadas.includes(getStoreById(e.target.parentNode.id))) {
+      setSelecionadas([ ...selecionadas, getStoreById(e.target.parentNode.id)]);
       return;
     }
 
-    setForm({
-      ...form,
-      [e.target.name]: [
-        ...form.lojas.filter((loja) => loja.codigo != e.target.parentNode.id),
-      ],
-    });
+    setSelecionadas(
+      selecionadas.filter(loja => loja.codigo != e.target.parentNode.id)
+    );
   };
 
   const selectProduct = (e) => {
@@ -47,14 +43,7 @@ const TableLine = ({ item, index, type }) => {
   };
 
   if (type == "lojas") {
-    useEffect(() => {
-      if (form.lojas.includes(getStoreById(item.codigo))) {
-        setChecked(true);
-        return;
-      } 
-      setChecked(false)
-    });
-
+    
     return (
       <div id={item.codigo} key={index} className="table-line">
         <span style={{ flex: `1`, paddingLeft: ".2em" }}>{item.codigo}</span>
@@ -64,33 +53,23 @@ const TableLine = ({ item, index, type }) => {
         <span style={{ flex: `1`, paddingLeft: ".2em" }}>{item.uf}</span>
         <input
           name="lojas"
-          checked={checked}
+          checked={selecionadas.includes(item) ? true : false}
           type="checkbox"
           onChange={(e) => {
-            setChecked(!checked);
             selectStore(e);
           }}
         />
       </div>
     );
-  } else if (type == "produtos") {
-    useEffect(() => {
-      if (form.produtos.includes(getProductById(item.id))) {
-        setChecked(true);
-        return;
-      } else {
-        setChecked(false);
-        return;
-      }
-    });
-
+  } if (type == "produtos") {
+  
     return (
       <div id={item.id} key={index} className="table-line line-produto">
         <span style={{ flex: `.17`, paddingLeft: ".2em" }}>{item.id}</span>
         <span style={{ flex: `1`, paddingLeft: ".2em" }}>{item.nome}</span>
         <input
           name="produtos"
-          checked={checked}
+          checked={form.produtos.includes(item) ? true : false}
           type="checkbox"
           onChange={(e) => {
             selectProduct(e);
