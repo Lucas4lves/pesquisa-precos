@@ -3,44 +3,56 @@ import { useState } from "react";
 import { useGlobalContext } from "../../Context";
 
 const TableLine = ({ item, index, type }) => {
+
   const [checked, setChecked] = useState(false);
 
-  const { form, setForm } = useGlobalContext();
+  const { lojas, produto,  form, setForm } = useGlobalContext();
 
+  const getStoreById = (id) => {
+    return lojas.filter((loja) => loja.codigo == id)[0];
+  };
 
-  const getStoreById = (e) =>{
-    return form.lojas.filter(loja => loja.codigo == e.target.parentNode.id)[0];
+  const getProductById = (id) => {
+    return produto.filter(produto => produto.id == id)[0];
   }
 
-  const select = (e) => {
-    if (form[`${e.target.name}`].includes(Number(e.target.parentNode.id))) {
-      setForm({
-        ...form,
-        [e.target.name]: [
-          ...form[`${e.target.name}`].filter(
-            loja => loja.codigo !== Number(e.target.parentNode.id)
-          ),
-        ],
-      });
+  const selectStore = (e) => {
+    if (!form[e.target.name].includes(getStoreById(e.target.parentNode.id))) {
+      setForm({ ...form, [e.target.name]: [...form[e.target.name], getStoreById(e.target.parentNode.id)]});
+      setChecked(!checked)
       return;
     }
+
     setForm({
       ...form,
       [e.target.name]: [
-        ...form[`${e.target.name}`],
-        Number(e.target.parentNode.id),
+        ...form.lojas.filter((loja) => loja.codigo != e.target.parentNode.id),
+      ],
+    });
+  };
+
+  const selectProduct = (e) => {
+    if (!form[e.target.name].includes(getProductById(e.target.parentNode.id))) {
+      setForm({ ...form, [e.target.name]: [...form[e.target.name], getProductById(e.target.parentNode.id)]});
+      setChecked(!checked)
+      return;
+    }
+
+    setForm({
+      ...form,
+      [e.target.name]: [
+        ...form.produtos.filter((produto) => produto.id != e.target.parentNode.id),
       ],
     });
   };
 
   if (type == "lojas") {
     useEffect(() => {
-      if (form.lojas.includes(Number(item.codigo))) {
+      if (form.lojas.includes(getStoreById(item.codigo))) {
         setChecked(true);
         return;
-      } else {
-        return setChecked(false);
-      }
+      } 
+      setChecked(false)
     });
 
     return (
@@ -55,21 +67,22 @@ const TableLine = ({ item, index, type }) => {
           checked={checked}
           type="checkbox"
           onChange={(e) => {
-            select(e);
             setChecked(!checked);
+            selectStore(e);
           }}
         />
       </div>
     );
   } else if (type == "produtos") {
     useEffect(() => {
-      if (form.produtos.includes(item.id)) {
+      if (form.produtos.includes(getProductById(item.id))) {
         setChecked(true);
         return;
       } else {
-        return setChecked(false);
+        setChecked(false);
+        return;
       }
-    }, []);
+    });
 
     return (
       <div id={item.id} key={index} className="table-line line-produto">
@@ -80,8 +93,7 @@ const TableLine = ({ item, index, type }) => {
           checked={checked}
           type="checkbox"
           onChange={(e) => {
-            setChecked(!checked);
-            select(e);
+            selectProduct(e);
           }}
         />
       </div>

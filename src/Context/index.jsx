@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from "react";
-import lojas from "../../lojas.json";
-import produto from "../../produto.json";
+import lojas from "../lojas.json";
+import produto from "../produto.json";
 
 export const AppContext = createContext();
 

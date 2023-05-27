@@ -66,6 +66,7 @@
 .select-wrapper{
     display: flex;
     position: relative;
+    align-items: center;  
     gap: .5em;
     align-items: center;
     flex: 1;
@@ -73,12 +74,21 @@
 
 .select-option{
     background-color: #0054A6;
-    top: 2px;   
-    left: 2px;
+    display: flex;
+
     width: 100%;
     background-color: #FFFFFF;
-    border: 1px solid #0054A6;
+    border: solid 1px #0054A6;
     border-radius: 10px;
     min-height: 38px;
+}
+
+.teste{
+    display: flex;
+    flex: 1;
+}
+
+.teste option{
+    margin-left: 5px;
 }
 

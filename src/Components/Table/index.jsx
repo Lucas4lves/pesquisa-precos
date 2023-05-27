@@ -12,7 +12,7 @@ const Table = ({ data, type }) => {
     return (
       <>
         <div className="top-box">
-          <SearchInput placeholder={"Pesquisar por Lojas..."} name={'lojas'} />
+          <SearchInput placeholder={"Digite o código da loja..."} name={'lojas'} />
         </div>
         <div className="inner-box">
           <TableHeader
