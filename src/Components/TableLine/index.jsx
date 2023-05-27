@@ -1,45 +1,25 @@
-import { useState } from "react";
-import { useGlobalContext } from "../../Contexts";
 import { useStoresContext } from '../../Contexts/Stores';
+import { useProductsContext } from "../../Contexts/Products";
 
 const TableLine = ({ item, index, type }) => {
 
-  const [checked, setChecked] = useState(false);
-  const { produto,  form, setForm } = useGlobalContext();
-  const { lojas, selecionadas, setSelecionadas } = useStoresContext();
-
-  const getStoreById = (id) => {
-    return lojas.filter((loja) => loja.codigo == id)[0];
-  };
+  const { lojas, selecionadas, selectStore } = useStoresContext();
+  const { produtos, selecionados, setSelecionados} = useProductsContext();
 
   const getProductById = (id) => {
-    return produto.filter(produto => produto.id == id)[0];
+    return produtos.filter(produto => produto.id == id)[0];
   }
 
-  const selectStore = (e) => {
-    if (!selecionadas.includes(getStoreById(e.target.parentNode.id))) {
-      setSelecionadas([ ...selecionadas, getStoreById(e.target.parentNode.id)]);
-      return;
-    }
-
-    setSelecionadas(
-      selecionadas.filter(loja => loja.codigo != e.target.parentNode.id)
-    );
-  };
 
   const selectProduct = (e) => {
-    if (!form[e.target.name].includes(getProductById(e.target.parentNode.id))) {
-      setForm({ ...form, [e.target.name]: [...form[e.target.name], getProductById(e.target.parentNode.id)]});
-      setChecked(!checked)
+    if (!selecionados.includes(getProductById(e.target.parentNode.id))) {
+      setSelecionados([...selecionados, getProductById(e.target.parentNode.id)]);
       return;
     }
 
-    setForm({
-      ...form,
-      [e.target.name]: [
-        ...form.produtos.filter((produto) => produto.id != e.target.parentNode.id),
-      ],
-    });
+    setSelecionados(
+      selecionados.filter(product => product.id != e.target.parentNode.id)
+    );
   };
 
   if (type == "lojas") {
@@ -69,7 +49,7 @@ const TableLine = ({ item, index, type }) => {
         <span style={{ flex: `1`, paddingLeft: ".2em" }}>{item.nome}</span>
         <input
           name="produtos"
-          checked={form.produtos.includes(item) ? true : false}
+          checked={selecionados.includes(item) ? true : false}
           type="checkbox"
           onChange={(e) => {
             selectProduct(e);

@@ -21,7 +21,9 @@ const ProductsProvider = ({children}) =>{
         <ProductsContext.Provider value={{
             produtos,
             produtosFiltrados,
-            setProdutosFiltrados
+            setProdutosFiltrados,
+            selecionados,
+            setSelecionados
         }}>
             {children}
         </ProductsContext.Provider>

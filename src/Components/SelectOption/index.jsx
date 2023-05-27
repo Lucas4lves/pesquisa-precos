@@ -1,8 +1,10 @@
 import { useGlobalContext } from "../../Contexts"
+import { useProductsContext } from "../../Contexts/Products"
 
 const SelectOption = ({categorias}) =>{
 
-    const {form, setForm, produtosFiltrados, setProdutosFiltrados, produto} = useGlobalContext();
+    const {form, setForm} = useGlobalContext();
+    const { produtos, setProdutosFiltrados} = useProductsContext();
 
     const setCategory = (e) =>{
         setForm({
@@ -13,7 +15,7 @@ const SelectOption = ({categorias}) =>{
 
     const filterByCategory = (e) =>{
         setProdutosFiltrados(
-            produto.filter(produto => produto.categoria === e.target.value)
+            produtos.filter(produto => produto.categoria === e.target.value)
         )
     }
 

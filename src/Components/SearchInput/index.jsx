@@ -28,7 +28,7 @@ const SearchInput = ({ placeholder, name }) => {
     ]);
 
     if(query.length <= 0){
-        setProdutosFiltrados(produto);
+        setProdutosFiltrados(produtos);
     }
     setQuery(query);
     return;

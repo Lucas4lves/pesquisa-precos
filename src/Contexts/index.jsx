@@ -1,7 +1,4 @@
 import { createContext, useContext, useState } from "react";
-
-import produto from "../produto.json";
-
 export const AppContext = createContext();
 
 export const useGlobalContext = () => {
@@ -9,7 +6,6 @@ export const useGlobalContext = () => {
 };
 
 const AppContextProvider = ({ children }) => {
-  const lineTypes = ["lojas", "produtos"];
   const [form, setForm] = useState({
     categoria: "RX",
     startDate: "",
@@ -22,8 +18,6 @@ const AppContextProvider = ({ children }) => {
   return (
     <AppContext.Provider
       value={{
-        produto,
-        lineTypes,
         form, setForm,
       }}
     >

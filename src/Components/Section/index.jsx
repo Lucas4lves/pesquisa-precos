@@ -9,11 +9,14 @@ import {
 import Table from "../Table";
 import StoresProvider from "../../Contexts/Stores.jsx";
 import ProductsProvider from "../../Contexts/Products";
+import Selected from "../Selected";
 
 const Section = ({ title, disabled = false }) => {
   return (
     <>
-      <AccordionItem
+      <AccordionItem __hover={{
+        backgroundColor: 'red'
+      }}
         isDisabled={disabled}
         style={{
           borderRadius: "10px",
@@ -47,8 +50,8 @@ const Section = ({ title, disabled = false }) => {
               <Box padding={"2"} flex={"1.5"}>
                 <Table type={title.toLowerCase()} />
               </Box>
-              <Box backgroundColor={"aquamarine"} flex={"1"}>
-                2
+              <Box flex={"1"}>
+                <Selected type={title.toLowerCase()} />
               </Box>
             </ProductsProvider>
           </StoresProvider>
