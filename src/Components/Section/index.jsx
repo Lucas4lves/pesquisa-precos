@@ -40,8 +40,8 @@ const Section = ({ title, disabled = false }) => {
           style={{
             display: "flex",
             width: "100%",
-            maxHeight: "320px",
-            minHeight: "80px",
+            maxHeight: "380px",
+            minHeight: "400px",
           }}
           pb={1}
         >

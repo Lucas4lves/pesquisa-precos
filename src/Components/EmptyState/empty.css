@@ -3,7 +3,9 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: flex-end;
     align-items: center;
+    margin-top: 2.5rem;
 }
 
 .empty-hero{
@@ -14,6 +16,7 @@
     width: 148px;
     height: 148px;
     border-radius: 50%;
+    opacity: .7;
 }
 
 .empty-header{
