@@ -13,6 +13,8 @@ const Table = ({ type }) => {
   const { lojas, selecionadas, setSelecionadas, lojasFiltradas } =
     useStoresContext();
 
+  const { selecionados } = useProductsContext();
+
   const { form, setForm, handleInitialDateChange, handleEndDateChange } =
     useGlobalContext();
 
@@ -111,10 +113,54 @@ const Table = ({ type }) => {
   }
 
   if (type === "resumo") {
+
+    let ids = selecionadas.map((loja) => Number(loja.codigo));
+    let newStartDate = form.startDate ? new Date(form.startDate).toISOString(): null
+    let newEndDate = form.endDate ? new Date(form.endDate).toISOString() : null;
+
+    let data = {
+      categoria: "RX/Marca",
+      lojas: ids,
+      produtos: selecionados,
+      startDate: newStartDate,
+      endDate: newEndDate,
+      isFinished: false,
+    }
+
     const formatDate = (date) => {
       let [year, month, day] = date.split("-");
 
       return `${day}/${month}/${year}`;
+    };
+
+    const validateData = (lookUpData) => {
+      for(let key in lookUpData){
+
+      }
+    };
+
+    const sendData = () => {
+
+      fetch(
+        "https://upcode-backend-projetofinal-production-191e.up.railway.app/api/criar",
+        {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify({
+            categoria: "RX/Marca",
+            lojas: ids,
+            produtos: selecionados,
+            startDate: newStartDate,
+            endDate: newEndDate,
+            isFinished: false,
+          }),
+        }
+      )
+        .then((res) => res.json())
+        .then((data) => console.log(data))
+        .catch((err) => console.log(err));
     };
 
     return (
@@ -124,7 +170,9 @@ const Table = ({ type }) => {
           <div className="summary-dates">
             <span style={{ flex: "2" }}>
               {" "}
-              Período: {formatDate(form.startDate)} a {formatDate(form.endDate)}{" "}
+              Período:{" "}
+              {form.startDate ? formatDate(form.startDate) : "--/--/--"} a{" "}
+              {form.startDate ? formatDate(form.endDate) : "--/--/--"}{" "}
             </span>
           </div>
         </div>
@@ -138,9 +186,21 @@ const Table = ({ type }) => {
         </div>
         <div>
           {" "}
-          <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+          <div style={{ display: "flex", justifyContent: "flex-end" }}>
             {" "}
-            <button style={{marginRight: '2rem'}} >seila</button>
+            <button
+              onClick={() => {
+                for(let key in data){
+                  if(!key || key.length <= 0)
+                  {
+                    alert("Welcome to costco!");
+                  }
+                }
+              }}
+              style={{ marginRight: "2rem" }}
+            >
+              Enviar
+            </button>
           </div>
         </div>
       </>

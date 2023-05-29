@@ -4,7 +4,7 @@ import {
     useContext
 } from 'react';
 
-import produtos from "../../produto.json";
+import produtos from "../produto.json";
 
 const ProductsContext = createContext();
 

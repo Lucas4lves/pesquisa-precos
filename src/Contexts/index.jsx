@@ -1,7 +1,7 @@
 import { createContext, useContext, useState } from "react";
 export const AppContext = createContext();
-import lojas from "../../lojas.json";
-import produtos from "../../produto.json";
+import lojas from "../lojas.json";
+import produtos from "../produto.json";
 
 export const useGlobalContext = () => {
   return useContext(AppContext);
@@ -20,8 +20,6 @@ const AppContextProvider = ({ children }) => {
     isFinished: false,
   });
   
-
-
   const handleInitialDateChange = (e) => {
     return setForm({...form, startDate: e.target.value});
   };
