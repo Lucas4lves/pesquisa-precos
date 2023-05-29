@@ -8,7 +8,6 @@ import DateInput from "../DateInput";
 import { useState } from "react";
 import { useGlobalContext } from "../../Contexts";
 import Selected from "../Selected";
-import SummaryTable from "../SummaryTable";
 
 const Table = ({ type }) => {
   const { lojas, selecionadas, setSelecionadas, lojasFiltradas } =
