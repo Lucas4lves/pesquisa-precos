@@ -34,8 +34,7 @@ const Section = ({ title, disabled = false, hint, handleIndex}) => {
               alignItems: 'center'
             }} color={"#FFFFFF"} as="span" flex="1" textAlign="left">
               {title}
-              {isExpanded && !isPeriod ?  <span style={{fontSize: '14px', paddingRight: '1rem'}} >{hint}</span> : null}
-              {isPeriod && <span style={{fontSize: '14px', paddingRight: '1rem'}} >{hint}</span> }
+              {isExpanded && <span style={{fontSize: '14px', paddingRight: '1rem'}} >{hint}</span>}
             </Box>
             <AccordionIcon />
           </AccordionButton>

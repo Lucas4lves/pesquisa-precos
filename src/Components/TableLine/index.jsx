@@ -6,7 +6,6 @@ const TableLine = ({ item, index, type }) => {
   const { selecionadas, selectStore } = useStoresContext();
   const { selecionados, selectProduct} = useProductsContext();
 
-
   if (type == "lojas") {
     
     return (

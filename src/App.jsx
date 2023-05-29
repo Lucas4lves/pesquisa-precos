@@ -2,9 +2,8 @@ import { Accordion } from "@chakra-ui/react";
 import Section from "./Components/Section";
 import AppContextProvider from "./Contexts/index.jsx";
 import { ChakraProvider } from "@chakra-ui/react";
-
 import "./app.css";
-import { useState } from "react";
+
 
 function App() {
 
@@ -18,8 +17,14 @@ function App() {
   return (
     <>
       <header className="header">
-        <h1>Pesquisa de Preços</h1>
+        <div className="buffer"></div>
+        <div className="header-heading" >
+
+        </div>
       </header>
+
+      <h1>Cadastro de Pesquisa</h1>
+
       <div className="main-wrapper">
         <ChakraProvider>
           <Accordion

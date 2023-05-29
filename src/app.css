@@ -1,9 +1,30 @@
 .main-wrapper{
-    margin-top: 150px;
+    margin-top: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
+}
+
+.header{
+    height: 64px;
+    display: flex;
+    align-items: center;
+    background-color: #0054A6;
+}
+
+.buffer{
+    flex: .35;
+}
+
+.header-heading{
+    flex: 2;
+    height: 53px;
+    width: 132px;
+    background-image: url("./assets/logo.png");
+    background-size: contain;
+    background-position: flex-start;
+    background-repeat: no-repeat;
 }
 
 .accordion-body{
@@ -34,7 +55,16 @@
 
 .top-box{
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+}
+
+.check{
+    margin-right: 1rem;
+    min-width: 120px;
+    border-radius: 10px;
+    color: #FFFFFF;
+    padding: .5em;
+
 }
 
 .inner-box{
@@ -117,11 +147,9 @@
     margin-left: 5px;
 }
 
-.selected-box{
-   
-}
-
 .selected-top{
+    display: flex;
+    justify-content: space-between;
     padding: 1em;
 }
 

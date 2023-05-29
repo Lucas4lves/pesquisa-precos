@@ -4,11 +4,12 @@ import TableHeader from "../TableHeader";
 import TableLine from "../TableLine";
 import { useStoresContext } from "../../Contexts/Stores.jsx";
 import { useProductsContext } from "../../Contexts/Products.jsx";
+import DateInput from "../DateInput";
+import { useState } from "react";
 
 const Table = ({ type }) => {
-  const { lojasFiltradas } = useStoresContext();
-  const { produtosFiltrados } = useProductsContext();
-
+  const { lojas, setSelecionadas, lojasFiltradas } = useStoresContext();
+  const [markAllStores, setMarkAllStores] = useState(false);
   if (type === "lojas") {
     return (
       <>
@@ -17,6 +18,20 @@ const Table = ({ type }) => {
             placeholder={"Digite o código da loja..."}
             name={"lojas"}
           />
+          <button  style={markAllStores ? {
+            backgroundColor: "#FF0000"
+          }: {backgroundColor: "#1DA63D"}} onClick={()=>{
+            setMarkAllStores(!markAllStores)
+            if(markAllStores)
+            {
+              return setSelecionadas([])
+            }
+
+            setSelecionadas(lojas);
+
+          }} className="check">{
+            markAllStores? "Desmarcar Todas" : "Marcar Todas"
+          }</button>
         </div>
         <div className="inner-box">
           <TableHeader
@@ -34,6 +49,7 @@ const Table = ({ type }) => {
       </>
     );
   } else if (type === "produtos") {
+    const { produtosFiltrados } = useProductsContext();
     return (
       <>
         <div className="top-box" style={{ gap: ".3em", alignItems: "center" }}>
@@ -64,12 +80,9 @@ const Table = ({ type }) => {
 
   return (
     <>
-      <label htmlFor="startDate">Data de início: </label>
-      <input id="startDate" type="datetime-local" />
-
-      <label htmlFor="endDate">Data de término: </label>
-      <input id="endDate" type="datetime-local" />
-    </>
+      <DateInput name={"startDate"} text={"Data de Início: "} />
+      <DateInput name={"endDate"} text={"Data de Término: "} />
+       </>
   );
 };
 

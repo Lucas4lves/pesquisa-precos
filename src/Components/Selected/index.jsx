@@ -4,7 +4,7 @@ import EmptyState from "../EmptyState";
 
 const Selected = ({ type }) => {
   const { selecionadas, selectStore } = useStoresContext();
-  const { selecionados, selectProduct } = useProductsContext();
+  const { produtos, selecionados,setSelecionados, selectProduct } = useProductsContext();
 
     const generateStoreSlug = (name) =>{
         let [code, slug, uf ] = name.split('-');
@@ -38,6 +38,7 @@ const Selected = ({ type }) => {
     <div className="selected-box">
     <div className="selected-top">
       <h3>Selecionados</h3>
+      <button>Marcar Todos</button>
     </div>
     <div className="selected-content">
       {selecionados.length > 0 ? selecionados?.map((product, index) => {
