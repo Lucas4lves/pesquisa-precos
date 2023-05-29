@@ -14,7 +14,8 @@ const Table = ({ type }) => {
   const { lojas, selecionadas, setSelecionadas, lojasFiltradas } =
     useStoresContext();
 
-  const { form, setForm, handleInitialDateChange, handleEndDateChange } = useGlobalContext();
+  const { form, setForm, handleInitialDateChange, handleEndDateChange } =
+    useGlobalContext();
 
   const [markAllStores, setMarkAllStores] = useState(false);
   if (type === "lojas") {
@@ -94,7 +95,6 @@ const Table = ({ type }) => {
   }
 
   if (type === "período") {
-
     return (
       <>
         <DateInput
@@ -112,13 +112,22 @@ const Table = ({ type }) => {
   }
 
   if (type === "resumo") {
+    const formatDate = (date) => {
+      let [year, month, day] = date.split("-");
+
+      return `${day}/${month}/${year}`;
+    };
+
     return (
       <>
         <div className="summary-top-box">
-          <p style={{flex: '.4'}}>Categoria : {form.categoria}</p>
-        <div className="summary-dates">
-         <span style={{flex: '2'}}> Período: {form.startDate} a {form.endDate} </span> 
-        </div>
+          <p style={{ flex: ".4" }}>Categoria : {form.categoria}</p>
+          <div className="summary-dates">
+            <span style={{ flex: "2" }}>
+              {" "}
+              Período: {formatDate(form.startDate)} a {formatDate(form.endDate)}{" "}
+            </span>
+          </div>
         </div>
         <div className="summary-content">
           <div className="summary-store">
@@ -126,6 +135,13 @@ const Table = ({ type }) => {
           </div>
           <div className="summary-products">
             <Selected type={"produtos"} />
+          </div>
+        </div>
+        <div>
+          {" "}
+          <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+            {" "}
+            <button style={{marginRight: '2rem'}} >seila</button>
           </div>
         </div>
       </>
