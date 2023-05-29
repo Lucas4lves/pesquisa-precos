@@ -6,9 +6,16 @@ import { useStoresContext } from "../../Contexts/Stores.jsx";
 import { useProductsContext } from "../../Contexts/Products.jsx";
 import DateInput from "../DateInput";
 import { useState } from "react";
+import { useGlobalContext } from "../../Contexts";
+import Selected from "../Selected";
+import SummaryTable from "../SummaryTable";
 
 const Table = ({ type }) => {
-  const { lojas, selecionadas, setSelecionadas, lojasFiltradas } = useStoresContext();
+  const { lojas, selecionadas, setSelecionadas, lojasFiltradas } =
+    useStoresContext();
+
+  const { form, setForm, handleInitialDateChange, handleEndDateChange } = useGlobalContext();
+
   const [markAllStores, setMarkAllStores] = useState(false);
   if (type === "lojas") {
     return (
@@ -35,7 +42,9 @@ const Table = ({ type }) => {
             }}
             className="check"
           >
-            {markAllStores || selecionadas.length > 0 ? "Desmarcar Todas" : "Marcar Todas"}
+            {markAllStores || selecionadas.length > 0
+              ? "Desmarcar Todas"
+              : "Marcar Todas"}
           </button>
         </div>
         <div className="inner-box">
@@ -84,31 +93,44 @@ const Table = ({ type }) => {
     );
   }
 
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  if (type === "período") {
 
-  const handleInitialDateChange = (e) => {
-    return setStartDate(e.target.value);
-  };
+    return (
+      <>
+        <DateInput
+          name={"startDate"}
+          text={"Data de Início: "}
+          handleChange={handleInitialDateChange}
+        />
+        <DateInput
+          name={"endDate"}
+          text={"Data de Término: "}
+          handleChange={handleEndDateChange}
+        />
+      </>
+    );
+  }
 
-  const handleEndDateChange = (e) => {
-    return setEndDate(e.target.value);
-  };
-
-  return (
-    <>
-      <DateInput
-        name={"startDate"}
-        text={"Data de Início: "}
-        handleChange={handleInitialDateChange}
-      />
-      <DateInput
-        name={"endDate"}
-        text={"Data de Término: "}
-        handleChange={handleEndDateChange}
-      />
-    </>
-  );
+  if (type === "resumo") {
+    return (
+      <>
+        <div className="summary-top-box">
+          <p style={{flex: '.4'}}>Categoria : {form.categoria}</p>
+        <div className="summary-dates">
+         <span style={{flex: '2'}}> Período: {form.startDate} a {form.endDate} </span> 
+        </div>
+        </div>
+        <div className="summary-content">
+          <div className="summary-store">
+            <Selected type={"lojas"} />
+          </div>
+          <div className="summary-products">
+            <Selected type={"produtos"} />
+          </div>
+        </div>
+      </>
+    );
+  }
 };
 
 export default Table;

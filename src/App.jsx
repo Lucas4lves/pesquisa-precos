@@ -1,5 +1,7 @@
 import { Accordion } from "@chakra-ui/react";
 import Section from "./Components/Section";
+import SummaryTable from "./Components/SummaryTable";
+
 import AppContextProvider from "./Contexts/index.jsx";
 import { ChakraProvider } from "@chakra-ui/react";
 import "./app.css";

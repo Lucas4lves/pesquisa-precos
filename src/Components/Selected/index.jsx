@@ -5,7 +5,7 @@ import EmptyState from "../EmptyState";
 
 const Selected = ({ type }) => {
   const { selecionadas, selectStore } = useStoresContext();
-  const { produtos, produtosFiltrados, selecionados, setSelecionados, selectProduct } = useProductsContext();
+  const { produtosFiltrados, selecionados, setSelecionados, selectProduct } = useProductsContext();
 
     const generateStoreSlug = (name) =>{
         let [code, slug, uf ] = name.split('-');

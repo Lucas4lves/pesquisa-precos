@@ -1,0 +1,14 @@
+.summary-top-box{
+    display: flex;
+}
+
+.stores-summary{
+    background-color: #FFFFFF;
+    height: 300px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.summary-top-box h2, h3{
+    flex: 1;
+}

@@ -164,6 +164,7 @@
 
 .selected-top{
     display: flex;
+    align-items: flex-end; 
     justify-content: space-between;
     padding: 1em;
 }
@@ -196,4 +197,29 @@
 
 .selected-remove {
     flex: .2;
+}
+
+.summary-top-box{
+    display: flex;
+    width: 100%;
+}
+
+.summary-content{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    overflow-y: hidden;
+}
+
+.summary-store{
+    flex: 1;
+}
+
+.summary-products {
+    flex: 1;
+}
+
+.summary-dates{
+    display: flex;
+    height: 50px;
 }

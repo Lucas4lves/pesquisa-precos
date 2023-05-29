@@ -1,13 +1,11 @@
 import { useStoresContext } from '../../Contexts/Stores';
 import { useProductsContext } from "../../Contexts/Products";
 
+
 const TableLine = ({ item, index, type }) => {
-
-  const { selecionadas, selectStore } = useStoresContext();
+  const { selecionadas, selectStore} = useStoresContext();
   const { selecionados, selectProduct} = useProductsContext();
-
   if (type == "lojas") {
-    
     return (
       <div id={item.codigo} key={index} className="table-line">
         <span style={{ flex: `1`, paddingLeft: ".2em" }}>{item.codigo}</span>
