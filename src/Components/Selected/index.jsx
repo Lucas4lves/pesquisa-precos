@@ -1,8 +1,10 @@
 import { useStoresContext } from "../../Contexts/Stores";
+import { useProductsContext } from "../../Contexts/Products";
 import EmptyState from "../EmptyState";
 
 const Selected = ({ type }) => {
-  const { selecionadas } = useStoresContext();
+  const { selecionadas, selectStore } = useStoresContext();
+  const { selecionados, selectProduct } = useProductsContext();
 
     const generateStoreSlug = (name) =>{
         let [code, slug, uf ] = name.split('-');
@@ -19,14 +21,14 @@ const Selected = ({ type }) => {
         <div className="selected-content">
         {selecionadas.length > 0? selecionadas?.map((loja, index) => {
           return (
-            <div className="selected-line" key={index}>
+            <div id={loja.codigo} className="selected-line" key={index}>
               <span className="selected-span span-loja">{loja.codigo}</span>
               <span className="selected-span span-filial" >{generateStoreSlug(loja.nomeFilial)}</span>
               <span className="selected-span span-uf" >{loja.uf}</span>
-              <button className="selected-remove" >X</button>
+              <button onClick={(e) => selectStore(e)} className="selected-remove" >X</button>
             </div>
           );
-        }): <EmptyState />}
+        }): <EmptyState type={"stores"} />}
         </div>
       </div>
     );
@@ -38,9 +40,15 @@ const Selected = ({ type }) => {
       <h3>Selecionados</h3>
     </div>
     <div className="selected-content">
-      {selecionadas?.map((loja, index) => {
-        return <p key={index}>{loja.codigo}</p>;
-      })}
+      {selecionados.length > 0 ? selecionados?.map((product, index) => {
+        return (
+          <div id={product.id}   className="selected-line" key={index}>
+            <span className="selected-span span-loja">{product.id}</span>
+            <span className="selected-span span-filial" >{product.nome}</span>  
+            <button onClick={(e) => selectProduct(e)} className="selected-remove" >X</button>
+          </div>
+        );
+      }): <EmptyState type={"products"} />}
       </div>
     </div>
   );

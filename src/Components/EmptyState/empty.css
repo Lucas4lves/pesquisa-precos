@@ -9,14 +9,22 @@
 }
 
 .empty-hero{
-    background-image: url("https://www.nenoticias.com.br/wp-content/uploads/2020/01/pague-menos-farmacia-1024x683.jpg");
-    background-size: cover;
+    background-size: contain;
+    background-position: center;
     background-repeat: no-repeat;
     filter: grayscale(100%);
     width: 148px;
     height: 148px;
     border-radius: 50%;
     opacity: .7;
+}
+
+.empty-stores{
+    background-image: url("../../assets/stores.png");
+}
+
+.empty-products{
+    background-image: url("../../assets/products.png");
 }
 
 .empty-header{

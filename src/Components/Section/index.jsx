@@ -11,27 +11,31 @@ import StoresProvider from "../../Contexts/Stores.jsx";
 import ProductsProvider from "../../Contexts/Products";
 import Selected from "../Selected";
 
-const Section = ({ title, disabled = false }) => {
+const Section = ({ title, disabled = false, hint, handleIndex}) => {
+
+  const isPeriod = title === "Período" ? true : false;
+
   return (
     <>
-      <AccordionItem __hover={{
-        backgroundColor: 'red'
-      }}
-        isDisabled={disabled}
-        style={{
-          borderRadius: "10px",
-          border: "none",
-          backgroundColor: "#F5F5F5",
-        }}
-      >
-        <h2>
-          <AccordionButton
+      <AccordionItem  id="" className="accordion-item">
+      {({isExpanded}) =>(
+        <>
+         <h2 >
+          <AccordionButton className="accordion-button"
+            transition={'none'}
             borderRadius={"10px"}
             padding={"1em"}
             backgroundColor={"#0054A6"}
+            
           >
-            <Box color={"#FFFFFF"} as="span" flex="1" textAlign="left">
+            <Box  style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center'
+            }} color={"#FFFFFF"} as="span" flex="1" textAlign="left">
               {title}
+              {isExpanded && !isPeriod ?  <span style={{fontSize: '14px', paddingRight: '1rem'}} >{hint}</span> : null}
+              {isPeriod && <span style={{fontSize: '14px', paddingRight: '1rem'}} >{hint}</span> }
             </Box>
             <AccordionIcon />
           </AccordionButton>
@@ -48,14 +52,16 @@ const Section = ({ title, disabled = false }) => {
           <StoresProvider>
             <ProductsProvider>
               <Box padding={"2"} flex={"1.5"}>
-                <Table type={title.toLowerCase()} />
+                <Table type={title.toLowerCase()} handleIndex={handleIndex} />
               </Box>
-              <Box flex={"1"}>
+             {!isPeriod ?<Box flex={"1"}>
                 <Selected type={title.toLowerCase()} />
-              </Box>
+              </Box> : null}
             </ProductsProvider>
           </StoresProvider>
         </AccordionPanel>
+        </>
+      )}
       </AccordionItem>
     </>
   );

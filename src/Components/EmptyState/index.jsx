@@ -1,27 +1,29 @@
 import "./empty.css";
 
-const EmptyState = () =>{
+const EmptyState = ({type}) =>{
 
     const messages = {
         stores: {
             headers: ["Ainda não há unidades selecionadas"],
-            paras: ["Marque as caixinhas ao lado para iniciar!"]
+            paras: ["Marque as caixinhas ao lado para iniciar!"],
         },
         products: {
-            headers: ["Ainda não há produtos selecionadas"],
+            headers: ["Ainda não há produtos selecionados"],
             paras: ["Marque as caixinhas ao lado para iniciar!"]
         }
     }
 
     return (
         <div className="empty-body">
-            <div className="empty-hero">
-
+            {
+                type === "stores" ? <div className="empty-hero empty-stores">
+                </div> : <div className="empty-hero empty-products">
             </div>
+            }
             <h3 className="empty-header">
-                {messages.stores.headers[0]}
+                {messages[type].headers[0]}
             </h3>
-            <p className="empty-para">{messages.stores.paras[0]}</p>
+            <p className="empty-para">{messages[type].paras[0]}</p>
         </div>
     )
 }

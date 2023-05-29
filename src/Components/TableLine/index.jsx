@@ -3,24 +3,9 @@ import { useProductsContext } from "../../Contexts/Products";
 
 const TableLine = ({ item, index, type }) => {
 
-  const { lojas, selecionadas, selectStore } = useStoresContext();
-  const { produtos, selecionados, setSelecionados} = useProductsContext();
+  const { selecionadas, selectStore } = useStoresContext();
+  const { selecionados, selectProduct} = useProductsContext();
 
-  const getProductById = (id) => {
-    return produtos.filter(produto => produto.id == id)[0];
-  }
-
-
-  const selectProduct = (e) => {
-    if (!selecionados.includes(getProductById(e.target.parentNode.id))) {
-      setSelecionados([...selecionados, getProductById(e.target.parentNode.id)]);
-      return;
-    }
-
-    setSelecionados(
-      selecionados.filter(product => product.id != e.target.parentNode.id)
-    );
-  };
 
   if (type == "lojas") {
     
