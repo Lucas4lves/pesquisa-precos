@@ -1,10 +1,11 @@
 import { useStoresContext } from "../../Contexts/Stores";
 import { useProductsContext } from "../../Contexts/Products";
+import { useState } from "react"
 import EmptyState from "../EmptyState";
 
 const Selected = ({ type }) => {
   const { selecionadas, selectStore } = useStoresContext();
-  const { produtos, selecionados,setSelecionados, selectProduct } = useProductsContext();
+  const { produtos, produtosFiltrados, selecionados, setSelecionados, selectProduct } = useProductsContext();
 
     const generateStoreSlug = (name) =>{
         let [code, slug, uf ] = name.split('-');
@@ -34,11 +35,26 @@ const Selected = ({ type }) => {
     );
   }
 
+  const [markAllProducts, setMarkAllProducts] = useState(false);
+
   return (
     <div className="selected-box">
     <div className="selected-top">
       <h3>Selecionados</h3>
-      <button>Marcar Todos</button>
+      <button  style={markAllProducts ? {
+            backgroundColor: "#FF0000"
+          }: {backgroundColor: "#1DA63D"}} onClick={()=>{
+            setMarkAllProducts(!markAllProducts)
+            if(markAllProducts)
+            {
+              return setSelecionados([])
+            }
+
+            setSelecionados(produtosFiltrados);
+
+          }} className="check">{
+            markAllProducts? "Desmarcar Todas" : "Marcar Todas"
+          }</button>
     </div>
     <div className="selected-content">
       {selecionados.length > 0 ? selecionados?.map((product, index) => {

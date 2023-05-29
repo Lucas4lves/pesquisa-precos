@@ -40,12 +40,12 @@ const Section = ({ title, disabled = false, hint, handleIndex}) => {
           </AccordionButton>
         </h2>
         <AccordionPanel
-          style={{
+          style={!isPeriod ? {
             display: "flex",
             width: "100%",
             maxHeight: "380px",
             minHeight: "400px",
-          }}
+          } : {maxHeight: "200px"}}
           pb={1}
         >
           <StoresProvider>

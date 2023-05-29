@@ -8,7 +8,7 @@ import DateInput from "../DateInput";
 import { useState } from "react";
 
 const Table = ({ type }) => {
-  const { lojas, setSelecionadas, lojasFiltradas } = useStoresContext();
+  const { lojas, selecionadas, setSelecionadas, lojasFiltradas } = useStoresContext();
   const [markAllStores, setMarkAllStores] = useState(false);
   if (type === "lojas") {
     return (
@@ -18,20 +18,25 @@ const Table = ({ type }) => {
             placeholder={"Digite o código da loja..."}
             name={"lojas"}
           />
-          <button  style={markAllStores ? {
-            backgroundColor: "#FF0000"
-          }: {backgroundColor: "#1DA63D"}} onClick={()=>{
-            setMarkAllStores(!markAllStores)
-            if(markAllStores)
-            {
-              return setSelecionadas([])
+          <button
+            style={
+              markAllStores || selecionadas.length > 0
+                ? {
+                    backgroundColor: "#FF0000",
+                  }
+                : { backgroundColor: "#1DA63D" }
             }
-
-            setSelecionadas(lojas);
-
-          }} className="check">{
-            markAllStores? "Desmarcar Todas" : "Marcar Todas"
-          }</button>
+            onClick={() => {
+              setMarkAllStores(!markAllStores);
+              if (markAllStores || selecionadas.length > 0) {
+                return setSelecionadas([]);
+              }
+              setSelecionadas(lojas);
+            }}
+            className="check"
+          >
+            {markAllStores || selecionadas.length > 0 ? "Desmarcar Todas" : "Marcar Todas"}
+          </button>
         </div>
         <div className="inner-box">
           <TableHeader
@@ -50,6 +55,7 @@ const Table = ({ type }) => {
     );
   } else if (type === "produtos") {
     const { produtosFiltrados } = useProductsContext();
+
     return (
       <>
         <div className="top-box" style={{ gap: ".3em", alignItems: "center" }}>
@@ -78,11 +84,30 @@ const Table = ({ type }) => {
     );
   }
 
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+
+  const handleInitialDateChange = (e) => {
+    return setStartDate(e.target.value);
+  };
+
+  const handleEndDateChange = (e) => {
+    return setEndDate(e.target.value);
+  };
+
   return (
     <>
-      <DateInput name={"startDate"} text={"Data de Início: "} />
-      <DateInput name={"endDate"} text={"Data de Término: "} />
-       </>
+      <DateInput
+        name={"startDate"}
+        text={"Data de Início: "}
+        handleChange={handleInitialDateChange}
+      />
+      <DateInput
+        name={"endDate"}
+        text={"Data de Término: "}
+        handleChange={handleEndDateChange}
+      />
+    </>
   );
 };
 

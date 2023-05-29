@@ -4,9 +4,7 @@ import AppContextProvider from "./Contexts/index.jsx";
 import { ChakraProvider } from "@chakra-ui/react";
 import "./app.css";
 
-
 function App() {
-
   const sectionHints = {
     period: "Defina a data de início e a data de término da sua pesquisa",
     stores: "Selecione quais unidades irão realizar a pesquisa",
@@ -18,24 +16,21 @@ function App() {
     <>
       <header className="header">
         <div className="buffer"></div>
-        <div className="header-heading" >
-
-        </div>
+        <div className="header-heading"></div>
       </header>
 
-      <h1>Cadastro de Pesquisa</h1>
+      <div className="title">
+        <h1>Cadastro de Pesquisa</h1>
+      </div>
 
       <div className="main-wrapper">
         <ChakraProvider>
-          <Accordion
-            allowToggle
-            className="accordion-body"
-          >
+          <Accordion allowToggle className="accordion-body">
             <AppContextProvider>
-              <Section title={"Período"} hint={sectionHints["period"]}  />
-              <Section title={"Lojas"} hint={sectionHints["stores"]}  />
-              <Section title={"Produtos"} hint={sectionHints["products"]}  />
-              <Section title={"Resumo"} hint={sectionHints["summary"]}  />
+              <Section title={"Período"} hint={sectionHints["period"]} />
+              <Section title={"Lojas"} hint={sectionHints["stores"]} />
+              <Section title={"Produtos"} hint={sectionHints["products"]} />
+              <Section title={"Resumo"} hint={sectionHints["summary"]} />
             </AppContextProvider>
           </Accordion>
         </ChakraProvider>
