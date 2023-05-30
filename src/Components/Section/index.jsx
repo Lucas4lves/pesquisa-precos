@@ -60,13 +60,13 @@ const Section = ({ title, disabled = false, hint, handleIndex }) => {
                           display: "flex",
                           width: "100%",
                           maxHeight: "380px",
-                          minHeight: "400px",
+                          minHeight: "440px",
                         }
                       : { maxHeight: "200px" }
                   }
                   pb={1}
                 >
-                  <Box padding={"2"} flex={"1.5"}>
+                  <Box className="accordion-box" padding={"2"} flex={"1.5"}>
                     <Table
                       type={title.toLowerCase()}
                       handleIndex={handleIndex}

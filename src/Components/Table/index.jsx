@@ -13,7 +13,7 @@ const Table = ({ type }) => {
   const { lojas, selecionadas, setSelecionadas, lojasFiltradas } =
     useStoresContext();
 
-  const { selecionados } = useProductsContext();
+  const { selecionados, setSelecionados } = useProductsContext();
 
   const { form, setForm, handleInitialDateChange, handleEndDateChange } =
     useGlobalContext();
@@ -173,13 +173,13 @@ const Table = ({ type }) => {
       )
         .then((res) => res.json())
         .then((data) => console.log(data))
-        .catch((err) => console.log(err));
+        .catch((err) => console.log(err));  
     };
 
     return (
       <>
         <div className="summary-top-box">
-          <p style={{ flex: ".4" }}>Categoria : {form.categoria}</p>
+          <p style={{ flex: ".4" }}>Categoria : {form.categoria ? form.categoria : "Não definida"}</p>
           <div className="summary-dates">
             <span style={{ flex: "2" }}>
               {" "}
@@ -200,7 +200,25 @@ const Table = ({ type }) => {
           {" "}
           <div style={{ display: "flex", justifyContent: "flex-end" }}>
             {" "}
-            <button
+            <button className="send-btn discard"
+              onClick={() => {
+                setForm(
+                  {
+                    categoria: "",
+                    startDate: "",
+                    endDate: "",
+                    lojas: [],
+                    produtos: [],
+                    isFinished: false,
+                  });
+                  setSelecionadas([])
+                  setSelecionados([])
+              }}
+              style={{ marginRight: "2rem" }}
+            >
+              Descartar
+            </button>
+            <button className="send-btn"
               onClick={() => {
                 if(validateData(data))
                 {

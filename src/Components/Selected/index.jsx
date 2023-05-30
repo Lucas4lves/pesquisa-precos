@@ -5,7 +5,7 @@ import EmptyState from "../EmptyState";
 
 const Selected = ({ type }) => {
   const { selecionadas, selectStore } = useStoresContext();
-  const { produtosFiltrados, selecionados, setSelecionados, selectProduct } =
+  const { produtosFiltrados, setSelecionados, selectProduct } =
     useProductsContext();
 
   const generateStoreSlug = (name) => {
@@ -48,7 +48,7 @@ const Selected = ({ type }) => {
   }
 
   const [markAllProducts, setMarkAllProducts] = useState(false);
-
+  const { selecionados } = useProductsContext();
   return (
     <div className="selected-box">
       <div className="selected-top">
