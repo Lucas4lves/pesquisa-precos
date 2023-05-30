@@ -38,6 +38,7 @@ const Table = ({ type }) => {
             onClick={() => {
               setMarkAllStores(!markAllStores);
               if (markAllStores || selecionadas.length > 0) {
+                setMarkAllStores(false);
                 return setSelecionadas([]);
               }
               setSelecionadas(lojas);
@@ -119,12 +120,11 @@ const Table = ({ type }) => {
     let newEndDate = form.endDate ? new Date(form.endDate).toISOString() : null;
 
     let data = {
+      startDate: newStartDate,
+      endDate: newEndDate,
       categoria: "RX/Marca",
       lojas: ids,
       produtos: selecionados,
-      startDate: newStartDate,
-      endDate: newEndDate,
-      isFinished: false,
     }
 
     const formatDate = (date) => {
@@ -133,11 +133,24 @@ const Table = ({ type }) => {
       return `${day}/${month}/${year}`;
     };
 
-    const validateData = (lookUpData) => {
-      for(let key in lookUpData){
 
+    const fieldSlugs = {
+      startDate: "Data de início",
+      endDate: "Data de término",
+      lojas: "Lojas",
+      produtos: "Produtos",
+      categoria: "Categoria"
+    }
+
+    const validateData = (data) => {
+      for(let key in data){
+        if(!data[key] || data[key].length <= 0)
+        {
+          return alert(`O campo ${fieldSlugs[key]} é obrigatório`)
+        }
       }
-    };
+      return true;
+    }
 
     const sendData = () => {
 
@@ -149,7 +162,7 @@ const Table = ({ type }) => {
             "Content-type": "application/json",
           },
           body: JSON.stringify({
-            categoria: "RX/Marca",
+            categoria: form.categoria,
             lojas: ids,
             produtos: selecionados,
             startDate: newStartDate,
@@ -171,8 +184,7 @@ const Table = ({ type }) => {
             <span style={{ flex: "2" }}>
               {" "}
               Período:{" "}
-              {form.startDate ? formatDate(form.startDate) : "--/--/--"} a{" "}
-              {form.startDate ? formatDate(form.endDate) : "--/--/--"}{" "}
+              {form.startDate && form.endDate ? `${formatDate(form.startDate)} a ${formatDate(form.endDate)}`: "Não definido" }
             </span>
           </div>
         </div>
@@ -190,11 +202,9 @@ const Table = ({ type }) => {
             {" "}
             <button
               onClick={() => {
-                for(let key in data){
-                  if(!key || key.length <= 0)
-                  {
-                    alert("Welcome to costco!");
-                  }
+                if(validateData(data))
+                {
+                  sendData();
                 }
               }}
               style={{ marginRight: "2rem" }}

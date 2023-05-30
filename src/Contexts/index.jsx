@@ -12,7 +12,7 @@ const AppContextProvider = ({ children }) => {
   const [endDate, setEndDate] = useState("");
 
   const [form, setForm] = useState({
-    categoria: "RX",
+    categoria: "RX/Marca",
     startDate: startDate,
     endDate: endDate,
     lojas: [],

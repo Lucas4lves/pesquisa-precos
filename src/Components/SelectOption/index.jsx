@@ -4,14 +4,21 @@ import { useProductsContext } from "../../Contexts/Products"
 const SelectOption = ({categorias}) =>{
 
     const {form, setForm} = useGlobalContext();
-    const { produtos, setProdutosFiltrados} = useProductsContext();
+    const { produtos, selecionados, setSelecionados, setProdutosFiltrados} = useProductsContext();
 
     const setCategory = (e) =>{
         setForm({
             ...form,
             categoria: e.target.value
         })
+        
     }
+
+    const resetProducts = () =>
+    {
+        setSelecionados([])
+    }
+
 
     const filterByCategory = (e) =>{
         setProdutosFiltrados(
@@ -25,6 +32,7 @@ const SelectOption = ({categorias}) =>{
             <div className="teste">
             <select onChange={(e) => {
                 setCategory(e)
+                resetProducts();
                 filterByCategory(e)
             }} className="select-option" id="categoria">
                 {categorias?.map((categoria, index) => {
