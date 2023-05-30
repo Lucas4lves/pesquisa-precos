@@ -8,4 +8,6 @@ const TableHeader = ({ columns, flexes }) => {
   );
 };
 
+//Passei os valores de flex numa lista pra ficar mais fácil de estilizar os filhos do cabeçalho de tabela
+
 export default TableHeader;
