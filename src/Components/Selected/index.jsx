@@ -8,6 +8,8 @@ const Selected = ({ type }) => {
   const { produtosFiltrados, setSelecionados, selectProduct } =
     useProductsContext();
 
+    const isSummary = type === "resumo" ? true : false;
+
   const generateStoreSlug = (name) => {
     let [code, slug, uf] = name.split("-");
 
@@ -18,7 +20,7 @@ const Selected = ({ type }) => {
     return (
       <div className="selected-box">
         <div className="selected-top">
-          <h3>Selecionadas</h3>
+          <h3>Lojas Selecionadas</h3>
         </div>
         <div className="selected-content">
           {selecionadas.length > 0 ? (
@@ -47,13 +49,15 @@ const Selected = ({ type }) => {
     );
   }
 
+  if(type === 'produtos')
+  {
   const [markAllProducts, setMarkAllProducts] = useState(false);
   const { selecionados } = useProductsContext();
   return (
     <div className="selected-box">
       <div className="selected-top">
         <h3>Selecionados</h3>
-        <button
+        {isSummary? null : <button
           style={
             markAllProducts
               ? {
@@ -67,13 +71,12 @@ const Selected = ({ type }) => {
               setMarkAllProducts(false);
               return setSelecionados([]);
             }
-
             setSelecionados(produtosFiltrados);
           }}
           className="check"
         >
           {markAllProducts ? "Desmarcar Todos" : "Marcar Todos"}
-        </button>
+        </button>}
       </div>
       <div className="selected-content">
         {selecionados.length > 0 ? (
@@ -98,7 +101,43 @@ const Selected = ({ type }) => {
         )}
       </div>
     </div>
-  );
+  )}
+
+  if(type === "resumo"){
+    const { selecionados } = useProductsContext();
+    return (
+        <>
+         <div className="selected-box">
+      <div className="selected-top">
+      <h3> Produtos Selecionados</h3>
+      </div>
+        <div className="selected-content">
+        {selecionados.length > 0 ? (
+          selecionados?.map((product, index) => {
+            return (
+              <div id={product.id} className="selected-line" key={index}>
+                <span className="selected-span span-loja">{product.id}</span>
+                <span className="selected-span span-filial">
+                  {product.nome}
+                </span>
+                <button
+                  onClick={(e) => selectProduct(e)}
+                  className="selected-remove"
+                >
+                  X
+                </button>
+              </div>
+              
+            );
+          })
+        ) : (
+          <EmptyState type={"products"} />
+        )}
+      </div>
+      </div>
+        </>
+    )
+  }
 };
 
 export default Selected;

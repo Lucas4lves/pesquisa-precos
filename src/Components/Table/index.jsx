@@ -102,11 +102,13 @@ const Table = ({ type }) => {
         <DateInput
           name={"startDate"}
           text={"Data de Início: "}
+          value={form.startDate}
           handleChange={handleInitialDateChange}
         />
         <DateInput
           name={"endDate"}
           text={"Data de Término: "}
+          value={form.endDate}
           handleChange={handleEndDateChange}
         />
       </>
@@ -133,6 +135,19 @@ const Table = ({ type }) => {
       return `${day}/${month}/${year}`;
     };
 
+    const clearInputs = () =>{
+      setForm(
+        {
+          categoria: "",
+          startDate: "",
+          endDate: "",
+          lojas: [],
+          produtos: [],
+          isFinished: false,
+        });
+        setSelecionadas([])
+        setSelecionados([])
+    }
 
     const fieldSlugs = {
       startDate: "Data de início",
@@ -193,7 +208,7 @@ const Table = ({ type }) => {
             <Selected type={"lojas"} />
           </div>
           <div className="summary-products">
-            <Selected type={"produtos"} />
+            <Selected type={"resumo"} />
           </div>
         </div>
         <div>
@@ -202,17 +217,7 @@ const Table = ({ type }) => {
             {" "}
             <button className="send-btn discard"
               onClick={() => {
-                setForm(
-                  {
-                    categoria: "",
-                    startDate: "",
-                    endDate: "",
-                    lojas: [],
-                    produtos: [],
-                    isFinished: false,
-                  });
-                  setSelecionadas([])
-                  setSelecionados([])
+                clearInputs();
               }}
               style={{ marginRight: "2rem" }}
             >
@@ -223,6 +228,18 @@ const Table = ({ type }) => {
                 if(validateData(data))
                 {
                   sendData();
+                  setForm(
+                    {
+                      categoria: "",
+                      startDate: "",
+                      endDate: "",
+                      lojas: [],
+                      produtos: [],
+                      isFinished: false,
+                    });
+                    setSelecionadas([])
+                    setSelecionados([])
+                  alert("Pesquisa enviada com sucesso!");
                 }
               }}
               style={{ marginRight: "2rem" }}
